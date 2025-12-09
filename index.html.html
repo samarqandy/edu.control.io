@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduControl - O'quv Markazi Avtomatlashtirish Tizimi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            color: white;
+            animation: fadeInDown 1s ease;
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            font-size: 1.8em;
+            opacity: 0.95;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .contact-info {
+            background: rgba(255,255,255,0.15);
+            padding: 20px 40px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 30px;
+            font-size: 1.4em;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+
+        .contact-info a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 50px 0;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.95);
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+
+        .stat-number {
+            font-size: 3.2em;
+            font-weight: 800;
+            color: #667eea;
+            display: block;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: #444;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 35px;
+            margin: 60px 0;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 25px;
+            padding: 35px 30px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .feature-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+        }
+
+        .icon {
+            font-size: 3.5em;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 1.05em;
+        }
+
+        .modules {
+            background: white;
+            border-radius: 25px;
+            padding: 50px 40px;
+            margin: 60px 0;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modules::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .modules h2 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.8em;
+            font-weight: 700;
+        }
+
+        .module-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .module-item {
+            padding: 25px;
+            background: linear-gradient(135deg, #667eea08 0%, #764ba208 100%);
+            border-radius: 18px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .module-item:hover {
+            transform: translateX(12px);
+            border-left-width: 10px;
+            background: linear-gradient(135deg, #667eea12 0%, #764ba212 100%);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .module-item h4 {
+            color: #667eea;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .benefits {
+            background: rgba(255,255,255,0.97);
+            border-radius: 25px;
+            padding: 50px 40px;
+            margin: 60px 0;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .benefits h2 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.8em;
+            font-weight: 700;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 25px 0;
+            padding: 25px;
+            background: white;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .benefit-item:hover {
+            transform: scale(1.02);
+            border-color: #667eea20;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.1);
+        }
+
+        .benefit-icon {
+            font-size: 2.2em;
+            margin-right: 25px;
+            flex-shrink: 0;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .benefit-item h3 {
+            color: #444;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+            font-weight: 700;
+        }
+
+        /* Bonus blocks - TO'LIQ TUZATILGAN */
+        .bonus-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .bonus-block {
+            background: rgba(255,255,255,0.12);
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 5px solid;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .bonus-block:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .bonus-block-1 { border-left-color: #4CAF50; }
+        .bonus-block-2 { border-left-color: #2196F3; }
+        .bonus-block-3 { border-left-color: #FF9800; }
+        .bonus-block-4 { 
+            border-left-color: #FFD700;
+            background: linear-gradient(135deg, rgba(255,215,0,0.2) 0%, rgba(255,193,7,0.15) 100%);
+            border: 2px solid rgba(255,215,0,0.3);
+        }
+        
+        .bonus-number {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+        
+        .bonus-number-1 { color: #4CAF50; }
+        .bonus-number-2 { color: #2196F3; }
+        .bonus-number-3 { color: #FF9800; }
+        .bonus-number-4 { color: #FFD700; }
+        
+        .bonus-title {
+            color: white;
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        
+        .bonus-description {
+            color: rgba(255,255,255,0.9);
+            line-height: 1.5;
+            font-size: 1.1em;
+        }
+
+        .cta {
+            text-align: center;
+            padding: 80px 20px;
+            color: white;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            border-radius: 30px;
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><path d="M0,0 L1000,0 L1000,100 L0,100 Z" fill="white" opacity="0.05"/></svg>');
+        }
+
+        .cta h2 {
+            font-size: 3em;
+            margin-bottom: 25px;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta p {
+            font-size: 1.4em;
+            margin: 20px auto 30px;
+            max-width: 700px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 22px 55px;
+            border-radius: 60px;
+            text-decoration: none;
+            font-size: 1.4em;
+            font-weight: 800;
+            margin: 25px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            position: relative;
+            z-index: 1;
+            border: 3px solid transparent;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+            background: #f8f9ff;
+            border-color: #667eea;
+        }
+
+        .guarantee {
+            background: rgba(255,255,255,0.95);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 50px 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 3px solid #667eea;
+        }
+
+        .guarantee h3 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .guarantee p {
+            font-size: 1.2em;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .footer-note {
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+            font-size: 1.1em;
+            opacity: 0.9;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5em; }
+            .tagline { font-size: 1.4em; }
+            .subtitle { font-size: 1.1em; }
+            .feature-card, .module-item, .benefit-item { padding: 25px 20px; }
+            .cta { padding: 50px 20px; }
+            .cta h2 { font-size: 2.2em; }
+            .cta-button { padding: 18px 35px; font-size: 1.2em; }
+            .bonus-container { grid-template-columns: 1fr; gap: 20px; }
+            .bonus-block { padding: 25px 20px; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 EduControl</h1>
+            <div class="tagline">O'quv Markazingizni To'liq Avtomatlashtiring</div>
+            <div class="subtitle">QR-kod, Face ID va Sun'iy Intellekt asosida ishlaydigan zamonaviy boshqaruv tizimi. 
+            Barcha jarayonlarni bitta platformada boshqaring va biznesingiz samaradorligini oshiring.</div>
+            <div class="contact-info">
+                📞 <a href="tel:+998936803113">+998 (93) 680-31-13</a>
+                &nbsp;&nbsp;•&nbsp;&nbsp;
+                📧 <a href="mailto:info@educontrol.uz">info@educontrol.uz</a>
+            </div>
+        </header>
+
+        <div class="stats">
+            <div class="stat-card">
+                <span class="stat-number">99%</span>
+                <span class="stat-label">Hisob-kitob aniqligi</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">70%</span>
+                <span class="stat-label">Operatsion vaqt tejash</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">40%</span>
+                <span class="stat-label">Daromad o'sishi</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">100%</span>
+                <span class="stat-label">Davomat nazorati</span>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-card">
+                <span class="icon">📱</span>
+                <h3>Ilg'or Kirish Tizimi</h3>
+                <p>Talabalar QR-kod yoki Face ID orqali bir soniyada kirishadi. Har bir tashrif avtomatik ravishda saqlanadi va o'qish muddatiga qarab ruxsat beriladi. Begonalar uchun kirish bloklangan.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">💳</span>
+                <h3>Zamonaviy Kassa Tizimi</h3>
+                <p>To'lovlarni qabul qilish, kurs davomiyligini avtomatik hisoblash va bank terminali bilan integratsiya. Barcha moliyaviy operatsiyalar bitta joyda, cheklar avtomatik chiqariladi.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">👨‍💼</span>
+                <h3>Professional Administrator Paneli</h3>
+                <p>Tizimni to'liq boshqaring: talabalar, kurslar, filiallar, xodimlar va barcha sozlamalarni bitta joydan nazorat qiling. Har bir foydalanuvchi uchun alohida ruxsatlar.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">📊</span>
+                <h3>Rahbar Dashboardi</h3>
+                <p>Haqiqiy vaqt rejimidagi statistika: qaysi kurslar ko'p sotilmoqda, qaysi filial samarali ishlayapti, qancha daromad kelayapti - hammasini bitta ekranda ko'ring. Qarorlaringiz ma'lumotlar asosida bo'lsin.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">⏱️</span>
+                <h3>Ish Vaqti Avtomatik Hisobi</h3>
+                <p>Xodimlar xuddi shu terminal orqali kelish-ketishlarini belgilaydi. Ish haqi hisoblash, kechikishlar va qo'shimcha soatlar avtomatik hisoblanadi. Kadrlar boshqaruvi soddalashtirilgan.</p>
+            </div>
+
+            <div class="feature-card">
+                <span class="icon">🏢</span>
+                <h3>Ko'p Filialli Boshqaruv</h3>
+                <p>Butun tarmoqni bitta tizimdan boshqaring. Har bir filialning natijalarini taqqoslang, eng samarali amaliyotlarni aniqlang va butun tarmoq bo'yicha yagona standart o'rnating.</p>
+            </div>
+        </div>
+
+        <div class="modules">
+            <h2>🎯 Tizimning Asosiy Modullari</h2>
+            <div class="module-list">
+                <div class="module-item">
+                    <h4>🚪 Kirish Terminali</h4>
+                    <p>QR va Face ID skanerlash, kirish huquqini tekshirish, barcha tashriflarni avtomatik yozib borish va xavfsizlik nazorati</p>
+                </div>
+                <div class="module-item">
+                    <h4>💰 Kassa va Moliyaviy Hisob</h4>
+                    <p>Kurslarni sotish, to'lov qabul qilish, elektron cheklar, barcha operatsiyalar tarixi va moliyaviy hisobotlar</p>
+                </div>
+                <div class="module-item">
+                    <h4>🔧 Admin Panel va Sozlashlar</h4>
+                    <p>Tizimning barcha sozlamalari va boshqaruv vositalari. Har bir rol uchun maxsus interfeys va imkoniyatlar</p>
+                </div>
+                <div class="module-item">
+                    <h4>📈 Tahlil va Biznes Hisobotlar</h4>
+                    <p>Interaktiv grafiklar, jadvallar, statistika va biznes prognozlari. Savdo tahlili va daromad oqimlari monitoringi</p>
+                </div>
+                <div class="module-item">
+                    <h4>👥 Talabalar Bazasi va CRM</h4>
+                    <p>Har bir talaba haqida to'liq ma'lumot, o'qish tarixi, aloqa va tracking. Marketing kampaniyalarini boshqarish</p>
+                </div>
+                <div class="module-item">
+                    <h4>📚 Kurslar va O'quv Jarayoni</h4>
+                    <p>Barcha kurslar, narxlar, dars jadvali, guruhlar va o'qituvchilarni boshqarish. O'quv rejalari va natijalarni monitoring qilish</p>
+                </div>
+                <div class="module-item">
+                    <h4>🏪 Filiallar Tarmog'i</h4>
+                    <p>Barcha o'quv markazlaringizni bir joydan boshqaring. Markaziy boshqaruv va mahalliy avtonomiya</p>
+                </div>
+                <div class="module-item">
+                    <h4>👔 Kadrlar va Ish Haqi</h4>
+                    <p>Xodimlar ma'lumotlari, ish vaqti hisobi, maosh hisoblash va motivatsiya tizimi. Ish unumdorligini oshirish</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="benefits">
+            <h2>✨ O'quv Markazingiz Uchun Aniq Foydalar</h2>
+            
+            <div class="benefit-item">
+                <div class="benefit-icon">⚡</div>
+                <div>
+                    <h3>Operatsion Xarajatlarni 70% Kamaytiring</h3>
+                    <p>Oddiy ishlar avtomatik bajariladi. Administratorlar 70% vaqtni talabalar bilan muloqot qilishga sarflaydi, qog'oz ishlari va qo'lda hisob-kitoblarga emas. Bu yiliga 600 soatgacha vaqt tejash degani.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">💎</div>
+                <div>
+                    <h3>Daromadingizni 30-40% Oshiring</h3>
+                    <p>Aniq hisob-kitoblar tufayli hech qanday to'lov o'tkazib yuborilmaydi. Tahlillar orqali qaysi kurslar eng foydali ekanligini aniqlab, to'g'ri investitsiya qarorlari qabul qilasiz. Natijada o'rtacha 30-40% ko'proq sof foyda.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">🎯</div>
+                <div>
+                    <h3>Barcha Jarayonlarni Real Vaqtda Kuzating</h3>
+                    <p>Hozir kim darsga keldi, qancha pul tushdi, qaysi o'qituvchi qayerda - bularning barchasini telefoningizdan jonli ravishda kuzatasiz. Uydan ham biznesingizni boshqaring.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">🔒</div>
+                <div>
+                    <h3>Kafolatli Xavfsizlik va Ma'lumotlar Himoyasi</h3>
+                    <p>Faqat ruxsat berilgan odamlar kiradi. Barcha ma'lumotlaringiz shifrlangan holda saqlanadi va muntazam ravishda backup qilinadi. ISO 27001 standartlariga mos keladigan xavfsizlik.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">📱</div>
+                <div>
+                    <h3>Zamonaviy Brend Imidji va Ishonch</h3>
+                    <p>Face ID va QR-kodlar talabalar va ota-onalarda ijobiy taassurot qoldiradi. Sizning markazingiz zamonaviy, ilg'or va ishonchli markaz sifatida tan olinadi, bu yangi mijozlarni jalb qilishda katta afzallik beradi.</p>
+                </div>
+            </div>
+
+            <div class="benefit-item">
+                <div class="benefit-icon">🚀</div>
+                <div>
+                    <h3>Biznesingiz O'sishi bilan Kengayadigan Tizim</h3>
+                    <p>Yangi filial ochasizmi? Muammo yo'q. Yangi kurs qo'shasizmi? 5 daqiqa ish. Tizim sizning biznesingiz o'sishi bilan birga kengayadi va yangi ehtiyojlaringizni qondiradi.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="guarantee">
+            <h3>✅ 14 Kun Bepul Sinov Muddati</h3>
+            <p>EduControl tizimini 14 kun bepul sinab ko'ring. Agar tizim sizning ehtiyojlaringizni qondirmasa yoki kutgan natijani bermasa, to'lov qaytariladi. Biz o'z mahsulotimizga 100% ishonamiz.</p>
+        </div>
+
+        <div class="cta">
+            <h2>🚀 O'quv Markazingizni Keyingi Bosqichga Olib Chiqing!</h2>
+            <p>Zamonaviy o'quv markazlari safiga qo'shiling va raqobatdosh ustunlikka ega bo'ling</p>
+            
+            <div style="margin: 30px 0; font-size: 1.3em; background: rgba(255,255,255,0.15); padding: 25px; border-radius: 20px; max-width: 800px; margin: 30px auto;">
+                <strong>Har bir mijoz uchun maxsus:</strong><br>
+                • O'quv markazingizga moslashtirilgan yechim<br>
+                • O'rnatish va o'qitish bepul<br>
+                • Birinchi 3 oy texnik yordam bepul<br>
+                • Doimiy yangilanishlar va qo'llab-quvvatlash
+            </div>
+            
+            <a href="tel:+998936803113" class="cta-button">📞 BEPUL KONSULTATSIYA OLISH</a>
+            
+            <!-- TO'LIQ TUZATILGAN BONUS BLOKLAR -->
+            <div class="bonus-container">
+                <div class="bonus-block bonus-block-1">
+                    <div class="bonus-number bonus-number-1">90%</div>
+                    <div class="bonus-title">o'quv markazlari</div>
+                    <div class="bonus-description">
+                        birinchi oydanoq ijobiy natija ko'radi
+                    </div>
+                </div>
+                
+                <div class="bonus-block bonus-block-2">
+                    <div class="bonus-number bonus-number-2">📊</div>
+                    <div class="bonus-title">Har bir mijoz uchun</div>
+                    <div class="bonus-description">
+                        shaxsiy samaradorlik tahlili<br>
+                        va ROI hisobi
+                    </div>
+                </div>
+                
+                <div class="bonus-block bonus-block-3">
+                    <div class="bonus-number bonus-number-3">👨‍💼</div>
+                    <div class="bonus-title">O'tish jarayonida</div>
+                    <div class="bonus-description">
+                        bizning mutaxassislar<br>
+                        to'liq yordam beradi
+                    </div>
+                </div>
+                
+                <div class="bonus-block bonus-block-4">
+                    <div class="bonus-number bonus-number-4">⭐</div>
+                    <div class="bonus-title">Ilk 10 mijoz uchun</div>
+                    <div class="bonus-description">
+                        20% chegirma +<br>
+                        qo'shimcha 3 oy bepul yordam
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <p>EduControl - O'quv markazlari uchun eng ilg'or boshqaruv tizimi</p>
+            <p>📞 +998 (93) 680-31-13 | 📧 info@educontrol.uz | 🌐 educontrol.uz</p>
+            <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.7;">© 2024 EduControl. Barcha huquqlar himoyalangan.</p>
+        </div>
+    </div>
+
+    <script>
+        // Scroll animatsiyasi
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '50px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Barcha animatsiya qilinadigan elementlarga kuzatuvchi qo'shish
+        document.querySelectorAll('.feature-card, .module-item, .benefit-item, .stat-card, .bonus-block').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Statistikani ko'rsatish animatsiyasi
+        const statNumbers = document.querySelectorAll('.stat-number');
+        statNumbers.forEach(stat => {
+            const finalValue = stat.textContent;
+            stat.textContent = '0';
+            
+            const numberObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        let current = 0;
+                        const finalNum = parseInt(finalValue.replace(/[^\d]/g, ''));
+                        const increment = finalNum / 50;
+                        
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= finalNum) {
+                                clearInterval(timer);
+                                stat.textContent = finalValue;
+                            } else {
+                                stat.textContent = Math.floor(current) + (finalValue.includes('%') ? '%' : '');
+                            }
+                        }, 30);
+                        
+                        numberObserver.unobserve(stat);
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            numberObserver.observe(stat);
+        });
+    </script>
+</body>
+</html>
